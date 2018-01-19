@@ -1,5 +1,5 @@
 build-utils==0.1.1
-Django==2.0.1
+Django==2.0.0
 django-filter==1.1.0
 djangorestframework==3.7.7
 fake-rpi==0.6.0
