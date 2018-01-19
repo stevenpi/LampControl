@@ -1,6 +1,6 @@
+import RPi.GPIO as gpio
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from gpiozero import LED
 
 from lamp_control.models import Lamp, Log
 
@@ -9,10 +9,13 @@ from lamp_control.models import Lamp, Log
 def create_lamp_log(sender, **kwargs):
 
     lamp = kwargs["instance"]
-    led = LED(lamp.gpiopin)
+
+    gpio.setmode(gpio.BCM)
+    gpio.setup(lamp.gpiopin, gpio.OUT)
+
     if lamp.is_on:
-        led.on()
+        gpio.output(lamp.gpiopin, gpio.HIGH)
     else:
-        led.off()
+        gpio.output(lamp.gpiopin, gpio.LOW)
 
     Log.objects.create(lamp=lamp)
