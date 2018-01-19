@@ -11,8 +11,8 @@ def create_lamp_log(sender, **kwargs):
     lamp = kwargs["instance"]
     led = LED(lamp.gpiopin)
     if lamp.is_on:
-        led.off()
-    else:
         led.on()
+    else:
+        led.off()
 
     Log.objects.create(lamp=lamp)
